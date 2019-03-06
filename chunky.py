@@ -1,14 +1,13 @@
 import logging
-from concurrent.futures import ThreadPoolExecutor
+import itertools
 from random import shuffle, seed
-
-from tqdm import tqdm
+from multiprocessing import Pool
 
 from image import Image
 from solver import Solver
 
 SEED = 1984
-CHUNK_SIZE = 50
+CHUNK_SIZE = 100
 
 
 # shamelessly stolen from https://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks
@@ -25,15 +24,9 @@ class ChunkySolver(Solver):
         shuffle(images)
         logging.debug('shuffling...done')
         image_chunks = [chunk for chunk in chunks(images, CHUNK_SIZE)]
-        future_slides = []
-        with ThreadPoolExecutor(max_workers=8) as executor:
-            for image_chunk in tqdm(image_chunks):
-                future_slide = executor.submit(ChunkySolver.solve_chunk, image_chunk)
-                future_slides.append(future_slide)
-            slides = []
-            for future_slide in tqdm(future_slides):
-                slides.extend(future_slide.result())
-            return slides
+        pool = Pool(8)
+        slides = pool.map(ChunkySolver.solve_chunk, image_chunks)
+        return list(itertools.chain(*slides))
 
     @staticmethod
     def get_best_horizontal(tags_set, horizontals):
