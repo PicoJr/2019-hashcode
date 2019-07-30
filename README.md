@@ -1,5 +1,7 @@
 # Hashcode 2019
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/55893fb7808344ecb376812c878afb23)](https://app.codacy.com/app/PicoJr/2019-hashcode?utm_source=github.com&utm_medium=referral&utm_content=PicoJr/2019-hashcode&utm_campaign=Badge_Grade_Dashboard)
+
 ## Example
 
 ```
