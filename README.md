@@ -2,14 +2,13 @@
 
 ## Example
 
-```
+``` text
 python3 runner.py --solver chunky res/c_memorable_moments.txt
 ```
 
 ## Score
 
 with `chunky` solver, `CHUNK_SIZE = 100`
-
 
 | Input | score  | solving time |
 |-------|-------:|-------------:|

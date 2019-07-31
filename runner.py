@@ -51,7 +51,7 @@ def main():
         logging.debug('solving took %s s', end - start)
 
         start = timer()
-        file_name, ext = os.path.splitext(input_file_path)
+        file_name, _ = os.path.splitext(input_file_path)
         dump(slides, file_name + '.out')
         end = timer()
 

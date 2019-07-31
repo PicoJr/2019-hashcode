@@ -1,6 +1,3 @@
-import logging
-
-
 class Image(object):
     def __init__(self, image_id, orientation, tags):
         self.image_id = image_id
@@ -16,7 +13,8 @@ class Image(object):
         :param images: [VVVV] | [HVV] | [VVH] | [HH]
         :return: score
         """
-        assert 1 < len(images) <= 4, images
+        if not 1 < len(images) <= 4:
+            raise AssertionError()
         orientations = ''.join(img.orientation for img in images)
         if orientations == 'VVVV':
             tags_set = images[0].tags | images[1].tags
@@ -28,7 +26,8 @@ class Image(object):
             tags_set = images[0].tags | images[1].tags
             other_tags_set = images[2].tags
         else:  # 'HH'
-            assert orientations == 'HH'
+            if orientations != "HH":
+                raise AssertionError()
             tags_set = images[0].tags
             other_tags_set = images[1].tags
         return Image.score_tags(tags_set, other_tags_set)
